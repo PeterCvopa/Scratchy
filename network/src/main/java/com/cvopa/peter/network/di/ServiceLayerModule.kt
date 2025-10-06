@@ -15,5 +15,4 @@ abstract class ServiceLayerModule {
     abstract fun bindActivationServiceDataSource(
         activationServiceDataSource: ActivationServiceDataSourceImpl
     ): ActivationServiceDataSource
-
 }

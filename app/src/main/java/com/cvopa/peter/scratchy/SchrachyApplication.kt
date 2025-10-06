@@ -9,11 +9,11 @@ private const val LOG_TAG_PREFIX = "SCRATCHY"
 class ScratchyApplication : android.app.Application() {
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(OliveaDebugTree())
+        Timber.plant(ScratchyDebugTree())
     }
 }
 
-private class OliveaDebugTree() : Timber.DebugTree() {
+private class ScratchyDebugTree() : Timber.DebugTree() {
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         super.log(priority, LOG_TAG_PREFIX + tag!!, message, t)
     }

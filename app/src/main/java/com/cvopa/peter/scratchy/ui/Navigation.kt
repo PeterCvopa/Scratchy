@@ -9,10 +9,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable object Scratch
 
-fun NavController.navigateToMainScreen() {
-    navigate(Main)
-}
-
 fun NavController.navigateToActivityScreen() {
     navigate(Activation)
 }

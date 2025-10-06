@@ -37,7 +37,8 @@ constructor(
         when (action) {
             ActivationScreenActions.OnActivation -> {
                 viewModelScope.launch {
-                    val result = scratchRepository.sendActivationCode()
+                    val code = (state.value.cardState as? ScratchStateUI.SCRATCHED)?.code
+                    val result = scratchRepository.sendActivationCode(code)
                     emitState { it.copy(error = result.toErrorState()) }
                 }
             }

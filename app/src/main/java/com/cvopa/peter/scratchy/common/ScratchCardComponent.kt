@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Chip
 import androidx.compose.material.ChipDefaults
@@ -154,7 +155,7 @@ private fun ScratchedCard(code: String) {
                 elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
             ) {
                 Box(
-                    modifier = Modifier.fillMaxHeight(),
+                    modifier = Modifier.fillMaxHeight().padding(horizontal = 12.dp),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -175,7 +176,7 @@ fun Preview() {
     MaterialTheme {
         Column() {
             ScratchCard(cardState = ScratchStateUI.ACTIVATED)
-            ScratchCard(cardState = ScratchStateUI.SCRATCHED("324e423 234 233 232 2"))
+            ScratchCard(cardState = ScratchStateUI.SCRATCHED("324e423 234  fdsf sfsdfsf 233 232 2"))
             ScratchCard(cardState = ScratchStateUI.UNSCRATCHED)
             ScratchCard(cardState = ScratchStateUI.SCRATCHING)
         }

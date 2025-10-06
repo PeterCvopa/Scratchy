@@ -2,13 +2,12 @@ package com.cvopa.peter.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import retrofit2.Retrofit
-import retrofit2.http.GET
-import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.jvm.java
-
+import retrofit2.Retrofit
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ActivationService {
     @GET("/version")
@@ -22,9 +21,8 @@ interface ActivationServiceDataSource {
 }
 
 @Singleton
-class ActivationServiceDataSourceImpl
-@Inject
-constructor(retrofit: Retrofit) : ActivationServiceDataSource {
+class ActivationServiceDataSourceImpl @Inject constructor(retrofit: Retrofit) :
+    ActivationServiceDataSource {
 
     private val service: ActivationService = retrofit.create(ActivationService::class.java)
 
@@ -34,6 +32,4 @@ constructor(retrofit: Retrofit) : ActivationServiceDataSource {
 }
 
 @JsonClass(generateAdapter = true)
-data class ActivationResponse(
-    @Json(name = "android") val androidVersion: String
-)
+data class ActivationResponse(@param:Json(name = "android") val androidVersion: String)

@@ -15,4 +15,3 @@ class MoshiModule {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 }
-

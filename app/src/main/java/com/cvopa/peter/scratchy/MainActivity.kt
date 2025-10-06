@@ -27,11 +27,11 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { OliveaAppContent() }
+        setContent { AppContent() }
     }
 
     @Composable
-    private fun OliveaAppContent() {
+    private fun AppContent() {
         val navController = rememberNavController()
         MaterialTheme {
             Scaffold(

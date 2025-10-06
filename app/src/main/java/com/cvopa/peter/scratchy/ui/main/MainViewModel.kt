@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 class MainViewModel
 @Inject
 constructor(
-    private val scratchRepository: ScratchRepository,
+    scratchRepository: ScratchRepository,
 ) :
     BaseViewModel<MainViewScreenState, MainAppEvent, MainScreenActions>(),
     DefaultLifecycleObserver {
