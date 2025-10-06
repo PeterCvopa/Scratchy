@@ -7,6 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.isActive
+import timber.log.Timber
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,7 +18,7 @@ const val SCRATCH_DELAY = 2000 //ms
 interface ScratchRepository {
     fun observeScratchState(): Flow<ScratchState>
     suspend fun sendActivationCode(): Result
-    suspend fun scratchCard()
+    suspend fun scratchCard(): ScratchState.SCRATCHED?
 }
 
 @Singleton
@@ -40,30 +41,32 @@ class ScratchRepositoryImpl @Inject constructor(
             } else {
                 Result.Error.InvalidCode
             }
-
         }.onSuccess { code ->
             cardState.emit(ScratchState.ACTIVATED)
         }.onFailure {
-            if(it is HttpException){
+            Timber.e(it)
+            if (it is HttpException) {
                 Result.Error.NetworkResult
-            }else{
+            } else {
                 Result.Error.General
             }
         }
             .getOrNull() ?: Result.Error.General
     }
 
-    override suspend fun scratchCard() {
+    override suspend fun scratchCard(): ScratchState.SCRATCHED? {
         val totalDuration = SCRATCH_DELAY
         val increment = 100L
         val steps = totalDuration / increment
         for (i in 1..steps) {
             if (coroutineContext.isActive.not()) {
-                return
+                return null
             }
             delay(increment)
         }
-        cardState.value = ScratchState.SCRATCHED(UUID.randomUUID().toString())
+        val newCode = ScratchState.SCRATCHED(UUID.randomUUID().toString())
+        cardState.emit(newCode)
+        return newCode
     }
 }
 
@@ -74,14 +77,9 @@ fun ActivationResponse.isValid(): Boolean {
     }.getOrNull() ?: false
 }
 
-sealed class ScratchState(open val code : String?) {
+sealed class ScratchState(open val code: String?) {
     data object UNSCRATCHED : ScratchState(null)
     data class SCRATCHED(override val code: String) : ScratchState(code)
     data object ACTIVATED : ScratchState(null)
 
-}
-
-enum class CoreExceptions(val message: String) {
-    NoCardCodeError("No card code"), NetworkError("No card code"),
-    UnknownError("general error");
 }

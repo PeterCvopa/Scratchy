@@ -37,12 +37,16 @@ android {
 
 dependencies {
 
+    //core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
     // moshi
     implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.base)
+    implementation(libs.moshi.kt)
+    implementation(libs.moshi.adapters)
 
     // timber
     implementation(libs.timber)
@@ -61,6 +65,7 @@ dependencies {
     //retrofit
     implementation(libs.retrofit.moshi)
     implementation(libs.retrofit.base)
+    implementation(libs.okhttp.interceptor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

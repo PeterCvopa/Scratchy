@@ -6,10 +6,9 @@ import com.cvopa.peter.core.ScratchRepository
 import com.cvopa.peter.core.ScratchState
 import com.cvopa.peter.scratchy.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
@@ -24,11 +23,12 @@ constructor(
         get() = MainViewScreenState()
 
     init {
-        scratchRepository.observeScratchState().onEach { newCardState ->
-            emitState { previousState ->
-                previousState.copy(cardState = newCardState.toUI())
+        scratchRepository
+            .observeScratchState()
+            .onEach { newCardState ->
+                emitState { previousState -> previousState.copy(cardState = newCardState.toUI()) }
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
     }
 
     override fun handleAction(action: MainScreenActions) {
@@ -36,7 +36,6 @@ constructor(
             MainScreenActions.OnButtonActivationClicked -> {
                 emitEvent(MainAppEvent.NavigateToActivation)
             }
-
             MainScreenActions.OnButtonScratchClicked -> {
                 emitEvent(MainAppEvent.NavigateToScratch)
             }
@@ -48,7 +47,11 @@ data class MainViewScreenState(val cardState: ScratchStateUI = ScratchStateUI.UN
 
 sealed class ScratchStateUI() {
     data object UNSCRATCHED : ScratchStateUI()
+
+    data object SCRATCHING : ScratchStateUI()
+
     data class SCRATCHED(val code: String) : ScratchStateUI()
+
     data object ACTIVATED : ScratchStateUI()
 }
 
@@ -62,11 +65,12 @@ fun ScratchState.toUI(): ScratchStateUI {
 
 sealed class MainAppEvent {
     data object NavigateToActivation : MainAppEvent()
+
     data object NavigateToScratch : MainAppEvent()
 }
 
 sealed class MainScreenActions {
     data object OnButtonActivationClicked : MainScreenActions()
+
     data object OnButtonScratchClicked : MainScreenActions()
 }
-

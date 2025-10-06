@@ -35,6 +35,5 @@ constructor(retrofit: Retrofit) : ActivationServiceDataSource {
 
 @JsonClass(generateAdapter = true)
 data class ActivationResponse(
-    @Json(name = "android")
-    val androidVersion: String
+    @Json(name = "android") val androidVersion: String
 )

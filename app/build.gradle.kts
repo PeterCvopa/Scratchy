@@ -14,7 +14,7 @@ android {
     compileSdk = 36
 
     buildFeatures {
-        compose =  true
+        compose = true
     }
 
     defaultConfig {
@@ -31,7 +31,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -45,10 +45,10 @@ android {
 }
 
 dependencies {
-    //local modules
+    // local modules
     implementation(project(":core"))
 
-    //core
+    // core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -89,6 +89,9 @@ dependencies {
     // serialization
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
+
+    // shimmer
+    implementation(libs.compose.shimmer)
 
     // testing
     testImplementation(libs.junit)

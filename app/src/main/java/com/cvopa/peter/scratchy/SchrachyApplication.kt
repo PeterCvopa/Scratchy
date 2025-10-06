@@ -3,7 +3,6 @@ package com.cvopa.peter.scratchy
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-
 private const val LOG_TAG_PREFIX = "SCRATCHY"
 
 @HiltAndroidApp

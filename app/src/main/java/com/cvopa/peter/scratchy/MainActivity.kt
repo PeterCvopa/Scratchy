@@ -25,10 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : androidx.appcompat.app.AppCompatActivity() {
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { OliveaAppContent() }
@@ -42,9 +38,8 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                 containerColor = MaterialTheme.colorScheme.background,
             ) { innerPadding ->
                 NavHost(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = innerPadding.calculateTopPadding()),
+                    modifier =
+                        Modifier.fillMaxSize().padding(top = innerPadding.calculateTopPadding()),
                     navController = navController,
                     startDestination = Main,
                     contentAlignment = Alignment.TopStart,
@@ -55,13 +50,8 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                             onNavigateToActivation = { navController.navigateToActivityScreen() },
                         )
                     }
-                    composable<Activation> {
-                        ActivationScreen()
-                    }
-
-                    composable<Scratch> {
-                       ScratchScreen()
-                    }
+                    composable<Activation> { ActivationScreen() }
+                    composable<Scratch> { ScratchScreen() }
                 }
             }
         }

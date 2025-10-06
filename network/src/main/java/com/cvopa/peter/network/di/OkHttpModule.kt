@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 @Module
@@ -16,6 +17,8 @@ object OkHttpModule {
     @Singleton
     fun provideOkHttpClient(
     ): OkHttpClient {
-        return OkHttpClient.Builder().build()
+        return OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }).build()
     }
 }
