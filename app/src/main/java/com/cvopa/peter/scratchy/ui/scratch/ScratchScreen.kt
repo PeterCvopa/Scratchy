@@ -4,12 +4,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cvopa.peter.scratchy.common.ScratchCard
@@ -36,6 +39,15 @@ fun ScratchScreen(state: ScratchScreenState, onAction: (ScratchScreenActions) ->
             cardState = state.cardState,
             onClick = { onAction(ScratchScreenActions.OnScratchClicked) }
         )
+        if (state.cardState is ScratchStateUI.UNSCRATCHED) {
+            Row(horizontalArrangement = Arrangement.Center) {
+                Text(
+                    "click to scratch",
+                    color = Color.Black.copy(alpha = 0.4f)
+                )
+            }
+        }
+
         if (state.errorState) {
             Row { Text(text = "Error") }
         }
