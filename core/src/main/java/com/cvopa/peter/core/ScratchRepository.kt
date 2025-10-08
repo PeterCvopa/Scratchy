@@ -1,6 +1,5 @@
 package com.cvopa.peter.core
 
-import android.net.http.HttpException
 import com.cvopa.peter.network.ActivationResponse
 import com.cvopa.peter.network.ActivationServiceDataSource
 import java.util.UUID
@@ -11,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.isActive
+import retrofit2.HttpException
 import timber.log.Timber
 
 const val SCRATCH_DELAY = 2000 // ms

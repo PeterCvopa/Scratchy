@@ -63,7 +63,7 @@ dependencies {
 
     // retrofit
     implementation(libs.retrofit.moshi)
-    implementation(libs.retrofit.base)
+    api(libs.retrofit.base)
     implementation(libs.okhttp.interceptor)
 
     testImplementation(libs.junit)
